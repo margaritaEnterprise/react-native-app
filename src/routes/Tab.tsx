@@ -35,7 +35,9 @@ function MyTabs() {
       })}>
       <Tab.Screen name="Location" component={LocationScreen} />
       <Tab.Screen name="Camera" component={CameraScreen} />
-      <Tab.Screen name="MasterDetail" component={MasterDetailStack} />
+      <Tab.Screen name="MasterDetail" component={MasterDetailStack}
+        options={{headerShown: false}}
+      />
     </Tab.Navigator>
   );
 }

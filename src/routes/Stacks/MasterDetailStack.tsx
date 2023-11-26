@@ -6,12 +6,30 @@ import DetailScreen from '../../views/DetailScreen';
 const Stack = createNativeStackNavigator();
 
 function MasterDetailStack() {
-    return (
-        <Stack.Navigator>
-            <Stack.Screen name="Master" component={MasterScreen}/>
-            <Stack.Screen name="Detail" component={DetailScreen}/>
-        </Stack.Navigator>
-      );
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Master"
+        component={MasterScreen}
+        options={({route}) => ({
+          headerStyle: {
+            backgroundColor: 'red',
+          },
+          headerTintColor: 'white',
+        })}
+      />
+      <Stack.Screen
+        name="Detail"
+        component={DetailScreen}
+        options={({route}) => ({
+          headerStyle: {
+            backgroundColor: 'red',
+          },
+          headerTintColor: 'white',
+        })}
+      />
+    </Stack.Navigator>
+  );
 }
 
 export default MasterDetailStack;
