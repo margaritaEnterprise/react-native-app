@@ -2,10 +2,12 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import MasterScreen from '../../views/MasterScreen';
 import DetailScreen from '../../views/DetailScreen';
+import { MasterDetailStackParams } from '../../types/types';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<MasterDetailStackParams>();
 
 function MasterDetailStack() {
+
   return (
     <Stack.Navigator>
       <Stack.Screen
