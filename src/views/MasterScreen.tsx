@@ -1,37 +1,31 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, View, Text, TouchableOpacity, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import {FlatList, View, Text, StatusBar, StyleSheet} from 'react-native';
 import getAll from '../services/fetch';
-import { Country, Location } from '../types/types';
+import { Country } from '../types/types';
 import ItemCountry from '../components/ItemCountry';
 
 function MasterScreen({navigation}) {
     
-    const [allCountries, setAllCountries] = useState<Array<Country>>();
+    const [allCountries, setAllCountries] = useState<Country[]>([]);
    
     useEffect(() => {
         const loadCountries = async() => {
             console.log("HOLA")
             try {
                 const response = await getAll("cca2,translations,flags,latlng");
-                let array:Array<Country> = [];
+                let array:Country[] = [];
                 response.map((item: any)=>{
-                    let l:Location = {
-                        lat: item.latlng[0],
-                        lng: item.latlng[1]
-                    }
-                    let c:Country = {
+                    let co:Country = {
                         cca2: item.cca2,
                         name: item.translations.spa.common,
                         flag: item.flags.png,
-                        location: {
-                            lat: item.latlng[0],
-                            lng: item.latlng[1]
-                        }
+                        lat: item.latlng[0],
+                        lng: item.latlng[1]
                     };
-                    array.push(c);
+                    array.push(co);
                 });
                 setAllCountries(array);
-                console.log(array);
+//                console.log(array);
             } catch(error) {
                 console.log(error)
             }
@@ -46,14 +40,13 @@ function MasterScreen({navigation}) {
             <Text>Master Screen</Text>
             <FlatList
                 data={allCountries}
-                renderItem={({item}) => <ItemCountry navigation={navigation} data={item} press={() => {navigation.navigate('Detail');}}/>}
+                renderItem={({item}) => <ItemCountry {...item}/>}
                 keyExtractor={item => item.cca2}
             />
         </View>
     
     );
 }
-/**name={item.name} cca2={item.cca2} flag={item.flag} location={item.location}  */
 
 const styles = StyleSheet.create({
     container: {
