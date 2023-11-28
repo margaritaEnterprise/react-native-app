@@ -4,6 +4,8 @@ export type Country = {
     flag: string; 
     lat: number; 
     lng: number;
+    coat: string;
+    region: string;
 }
 
 export type MasterDetailStackParams = {

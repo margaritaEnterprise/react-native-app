@@ -8,30 +8,30 @@ const Stack = createNativeStackNavigator<MasterDetailStackParams>();
 
 function MasterDetailStack() {
 
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Master"
-        component={MasterScreen}
-        options={({route}) => ({
-          headerStyle: {
-            backgroundColor: 'red',
-          },
-          headerTintColor: 'white',
-        })}
-      />
-      <Stack.Screen
-        name="Detail"
-        component={DetailScreen}
-        options={({route}) => ({
-          headerStyle: {
-            backgroundColor: 'red',
-          },
-          headerTintColor: 'white',
-        })}
-      />
-    </Stack.Navigator>
-  );
+    return (
+        <Stack.Navigator>
+            <Stack.Screen
+                name="Master"
+                component={MasterScreen}
+                options={({route}) => ({
+                    headerStyle: {
+                        backgroundColor: 'red',
+                    },
+                    headerTintColor: 'white',
+                })}
+              />
+              <Stack.Screen
+                  name="Detail"
+                  component={DetailScreen}
+                  options={({route}) => ({
+                      headerStyle: {
+                          backgroundColor: 'red',
+                      },
+                      headerTintColor: 'white',
+                })}
+            />
+        </Stack.Navigator>
+    );
 }
 
 export default MasterDetailStack;

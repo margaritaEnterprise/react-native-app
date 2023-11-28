@@ -1,5 +1,5 @@
 import React, {useEffect, FC} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import { Country } from '../types/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {MasterDetailStackParams} from '../types/types';
@@ -9,7 +9,7 @@ import {useNavigation} from '@react-navigation/native'
 type ItemCountryNavigationProps = NativeStackNavigationProp<MasterDetailStackParams>;
 
 
-const ItemCountry:FC<Country> = ({cca2, name, flag, lat, lng}) => {
+const ItemCountry:FC<Country> = ({cca2, name, flag, lat, lng, coat, region}) => {
    
     const { navigate } = useNavigation<ItemCountryNavigationProps>();
 
@@ -19,33 +19,55 @@ const ItemCountry:FC<Country> = ({cca2, name, flag, lat, lng}) => {
     }, []);
 
     const goToDetail = () => {
-        navigate("Detail", {cca2, name, flag, lat, lng});
+        navigate("Detail", {cca2, name, flag, lat, lng, coat, region});
     }
     
 
-    return ( 
+    return ( coat &&
         <TouchableOpacity onPress={goToDetail}>
-            <View style={styles.item}>
-                <Text>{cca2}</Text>
-                <Text>{name}</Text>
-                <Text>{flag}</Text>
-                <Text>{lat}</Text>
-                <Text>{lng}</Text>
+            <View  style={styles.container}>
+                <Image
+                    source={{
+                        uri: coat
+                    }}
+                    style={styles.imageFlag}
+                    onLoad={() => console.log("Imagen cargada correctamente")}
+                    onError={(error) => console.error("Error al cargar la imagen", error)}
+                    resizeMode="contain"
+                />
+                <Text style={styles.cca2}>{cca2}</Text>
+                <Text style={styles.title}>{name}</Text>
             </View>
         </TouchableOpacity>
     );
 }
 
 const styles = StyleSheet.create({
-    item: {
-        backgroundColor: '#f9c2ff',
-        padding: 20,
+    container: {
+        flexDirection: 'row', 
+        backgroundColor: '#DDD',
         marginVertical: 8,
-        marginHorizontal: 16,
+        borderRadius: 10,
+        justifyContent: 'flex-start', 
+        alignItems:'center',
+        padding: 10,
+        
     },
     title: {
-        fontSize: 32,
+        fontSize: 20,
+        color: '#333333',
+        paddingStart: 10
+
     },
+    cca2: {
+        color: 'red',
+        alignItems:'center',
+        padding: 15
+    },
+    imageFlag: {
+        width: 60, 
+        height: 60,
+    }
 });
 
 export default ItemCountry;

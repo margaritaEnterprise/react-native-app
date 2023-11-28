@@ -4,15 +4,14 @@ import getAll from '../services/fetch';
 import { Country } from '../types/types';
 import ItemCountry from '../components/ItemCountry';
 
-function MasterScreen({navigation}) {
+function MasterScreen() {
     
     const [allCountries, setAllCountries] = useState<Country[]>([]);
    
     useEffect(() => {
         const loadCountries = async() => {
-            console.log("HOLA")
             try {
-                const response = await getAll("cca2,translations,flags,latlng");
+                const response = await getAll("cca2,translations,flags,latlng,coatOfArms,region");
                 let array:Country[] = [];
                 response.map((item: any)=>{
                     let co:Country = {
@@ -20,7 +19,9 @@ function MasterScreen({navigation}) {
                         name: item.translations.spa.common,
                         flag: item.flags.png,
                         lat: item.latlng[0],
-                        lng: item.latlng[1]
+                        lng: item.latlng[1],
+                        coat: item.coatOfArms.png,
+                        region: item.region
                     };
                     array.push(co);
                 });
@@ -37,8 +38,7 @@ function MasterScreen({navigation}) {
 
     return ( 
         <View style={styles.container}>
-            <Text>Master Screen</Text>
-            <FlatList
+            <FlatList style={{flex:1}}
                 data={allCountries}
                 renderItem={({item}) => <ItemCountry {...item}/>}
                 keyExtractor={item => item.cca2}
@@ -53,8 +53,10 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: StatusBar.currentHeight || 0, 
         justifyContent:'center', 
-        alignItems:'center'
-    }
+        alignItems:'center',
+        marginHorizontal: 5
+    },
+
 });
 
 export default MasterScreen;
